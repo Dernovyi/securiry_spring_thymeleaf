@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.dernovyi.securiry_spring_thymeleaf.service.UserDetailsServiceImpl;
 
 
 @Configuration
@@ -19,19 +20,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("UserDetailsServiceImpl")
     private final UserDetailsService userDetailsService;
 
-    @Autowired
-    public WebSecurityConfig( UserDetailsService userDetailsService) {
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
+
+
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
         return authenticationManager();
     }
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    public MyOwnPasswordEncoder bCryptPasswordEncoder(){
+        return new MyOwnPasswordEncoder();
     }
-        @Override
+//    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
