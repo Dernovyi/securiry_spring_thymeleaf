@@ -26,15 +26,15 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final VerificationTokenRepo verificationTokenRepo;
     private final MailSenderService mailSenderService;
-//    @Bean
-//    public PasswordEncoder getPasswordEncoder(){
-//
-//        return new BCryptPasswordEncoder();
-//    }
     @Bean
-    public MyOwnPasswordEncoder getPasswordEncoder(){
-        return  new MyOwnPasswordEncoder();
+    public PasswordEncoder getPasswordEncoder(){
+
+        return new BCryptPasswordEncoder();
     }
+//    @Bean
+//    public MyOwnPasswordEncoder getPasswordEncoder(){
+//        return  new MyOwnPasswordEncoder();
+//    }
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, VerificationTokenRepo verificationTokenRepo, MailSenderService mailSenderService) {
         this.userRepository = userRepository;

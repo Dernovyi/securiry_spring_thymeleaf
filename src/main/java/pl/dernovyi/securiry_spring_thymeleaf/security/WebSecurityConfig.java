@@ -29,14 +29,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager customAuthenticationManager() throws Exception {
         return authenticationManager();
     }
-    @Bean
-    public MyOwnPasswordEncoder bCryptPasswordEncoder(){
-        return new MyOwnPasswordEncoder();
-    }
 //    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
+//    public MyOwnPasswordEncoder bCryptPasswordEncoder(){
+//        return new MyOwnPasswordEncoder();
 //    }
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
             http
