@@ -11,6 +11,7 @@ import pl.dernovyi.securiry_spring_thymeleaf.model.VerificationToken;
 import pl.dernovyi.securiry_spring_thymeleaf.repo.RoleRepository;
 import pl.dernovyi.securiry_spring_thymeleaf.repo.UserRepository;
 import pl.dernovyi.securiry_spring_thymeleaf.repo.VerificationTokenRepo;
+import pl.dernovyi.securiry_spring_thymeleaf.security.MyOwnPasswordEncoder;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,14 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final VerificationTokenRepo verificationTokenRepo;
     private final MailSenderService mailSenderService;
+//    @Bean
+//    public PasswordEncoder getPasswordEncoder(){
+//
+//        return new BCryptPasswordEncoder();
+//    }
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
-
-        return new BCryptPasswordEncoder();
+    public MyOwnPasswordEncoder getPasswordEncoder(){
+        return  new MyOwnPasswordEncoder();
     }
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, VerificationTokenRepo verificationTokenRepo, MailSenderService mailSenderService) {
