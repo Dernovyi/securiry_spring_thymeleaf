@@ -7,5 +7,6 @@ import pl.dernovyi.securiry_spring_thymeleaf.model.VerificationToken;
 @Repository
 public interface VerificationTokenRepo extends JpaRepository<VerificationToken, Long> {
     VerificationToken findByValue(String value);
-    void deleteByValue(String value);
+    boolean findFirstByValue(String value);
+    void  deleteByValue(String value);
 }

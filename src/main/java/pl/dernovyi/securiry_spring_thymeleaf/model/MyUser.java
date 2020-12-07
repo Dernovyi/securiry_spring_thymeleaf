@@ -17,9 +17,9 @@ public class MyUser {
 
     private boolean isEnabled;
     @Transient
-    private boolean role;
-    @Transient
     private String passwordConfirm;
+    @Transient
+    private String transRole;
 
     @ManyToMany(fetch = FetchType.EAGER,  cascade = {
             CascadeType.PERSIST,
@@ -32,6 +32,7 @@ public class MyUser {
     public MyUser() {
     }
 
+
     public MyUser(String username, String password, String passwordConfirm, Set<Role> roles) {
         this.username = username;
         this.password = password;
@@ -39,12 +40,13 @@ public class MyUser {
         this.roles = roles;
     }
 
-    public boolean isRole() {
-        return role;
+
+    public String getTransRole() {
+        return transRole;
     }
 
-    public void setRole(boolean role) {
-        this.role = role;
+    public void setTransRole(String transRole) {
+        this.transRole = transRole;
     }
 
     public boolean isEnabled() {

@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(MyUser user, HttpServletRequest request) {
-        if(!user.isRole()){
+        if(user.getTransRole().equals("USER")){
             user.setPassword(getPasswordEncoder().encode(user.getPassword()));
             user.addRoles(roleRepository.findByName("ROLE_USER"));
             user.setEnabled(false);
@@ -84,17 +84,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void verifyToken(String token) {
-        VerificationToken verificationToken = verificationTokenRepo.findByValue(token);
-        LocalDateTime time = LocalDateTime.now().plusMinutes(1);
-        LocalDateTime createTime = verificationToken.getDate();
-        MyUser myUser = verificationToken.getMyUser();
-        if(time.isAfter(createTime)){
-            verificationTokenRepo.delete(verificationToken);
-        }else{
-            myUser.setEnabled(true);
-            verificationTokenRepo.delete(verificationToken);
-            userRepository.save(myUser);
-        }
+
+          VerificationToken verificationToken = verificationTokenRepo.findByValue(token);
+
+          LocalDateTime time = LocalDateTime.now();
+          LocalDateTime createTime = verificationToken.getDate().plusMinutes(5);
+          MyUser myUser = verificationToken.getMyUser();
+          if(time.isAfter(createTime)){
+              verificationTokenRepo.delete(verificationToken);
+          }else{
+              myUser.setEnabled(true);
+              verificationTokenRepo.delete(verificationToken);
+              userRepository.save(myUser);
+          }
 
 
     }

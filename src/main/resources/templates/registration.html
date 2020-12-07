@@ -30,10 +30,10 @@
                    placeholder="Confirm your password">
             <span class="has-error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
         </div>
-        <div class="form-group">
-             <label for="role">Admin</label>:
-               <input type="checkbox" id="role" name="role" /> <br />
-        </div>
+        <select name="transRole">
+            <option th:each="transRole : ${T(pl.dernovyi.securiry_spring_thymeleaf.model.RoleEnum).values()}"
+                    th:value="${transRole}" th:text="${transRole}"></option>
+        </select>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form>
 
